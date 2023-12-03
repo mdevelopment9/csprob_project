@@ -1,0 +1,8 @@
+# virtual environment files/scripts
+Include/
+Lib/
+Scripts/
+__pycache__
+start.bat
+start.sh
+pyvenv.cfg
