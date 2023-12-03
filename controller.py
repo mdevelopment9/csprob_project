@@ -1,6 +1,8 @@
 """
 Main controller class module
 """
+import tkinter as tk
+from tkinter import filedialog as fd
 
 class Controller:
     """
@@ -8,3 +10,22 @@ class Controller:
     """
     def __init__(self, view):
         self.view = view
+
+    def select_file(self, file_box: tk.Text) -> None:
+        """
+        Selects an audio file to be used in the program
+
+        :param file_box: tkinter text box for audio file location
+        """
+        file_types = [('Audio Files', '.wav .mp3 .aac .flac')]
+        file_name = fd.askopenfilename(title='Choose the audio file', filetypes=file_types)
+        file_box.insert('end', file_name)
+
+    def start_model(self, file_name: str) -> None:
+        """
+        Starts the audio modelling process
+
+        :param file_box: File name for the audio file
+        """
+        #TODO: Setup the modelling function and create model classes
+        pass
