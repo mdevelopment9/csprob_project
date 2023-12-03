@@ -1,0 +1,7 @@
+# virtual environment files/scripts
+Include/
+Lib/
+Scripts/
+start.bat
+start.sh
+pyvenv.cfg
