@@ -15,11 +15,13 @@ class Controller:
         """
         Selects an audio file to be used in the program
 
-        :param file_box: tkinter text box for audio file location
+        :param file_box: tkinter text box for the audio file's location
         """
         file_types = [('Audio Files', '.wav .mp3 .aac .flac')]
         file_name = fd.askopenfilename(title='Choose the audio file', filetypes=file_types)
+        file_box['state'] = tk.NORMAL
         file_box.insert('end', file_name)
+        file_box['state'] = tk.DISABLED
 
     def start_model(self, file_name: str) -> None:
         """
