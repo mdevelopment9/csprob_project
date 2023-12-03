@@ -28,4 +28,3 @@ class Controller:
         :param file_box: File name for the audio file
         """
         #TODO: Setup the modelling function and create model classes
-        pass

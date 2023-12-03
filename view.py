@@ -44,7 +44,8 @@ class View(ttk.Frame):
         file_box = tk.Text(
             top_frame,
             height=1,
-            width=30
+            width=30,
+            state=tk.DISABLED
         )
         file_box.grid(row=0, column = 0, padx=5)
         select_button = tk.Button(
