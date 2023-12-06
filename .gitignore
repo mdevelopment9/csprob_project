@@ -10,3 +10,8 @@ bin/
 start.bat
 start.sh
 pyvenv.cfg
+#audio files
+*.flac
+*.mp3
+*.wav
+*.aac
