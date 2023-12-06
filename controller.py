@@ -3,7 +3,7 @@ Main controller class module
 """
 import tkinter as tk
 from tkinter import filedialog as fd
-
+from file_handler import FileHandler
 class Controller:
     """
     Main controller class
@@ -22,6 +22,8 @@ class Controller:
         file_box['state'] = tk.NORMAL
         file_box.insert('end', file_name)
         file_box['state'] = tk.DISABLED
+        handle = FileHandler(file_name)
+        handle.getFileData()
 
     def start_model(self, file_name: str) -> None:
         """
