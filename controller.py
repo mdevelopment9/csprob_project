@@ -22,8 +22,6 @@ class Controller:
         file_box['state'] = tk.NORMAL
         file_box.insert('end', file_name)
         file_box['state'] = tk.DISABLED
-        handle = FileHandler(file_name)
-        
 
     def start_model(self, file_name: str) -> None:
         """
@@ -31,4 +29,4 @@ class Controller:
 
         :param file_box: File name for the audio file
         """
-        #TODO: Setup the modelling function and create model classes
+        file_handler = FileHandler(file_name)

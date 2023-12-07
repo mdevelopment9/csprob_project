@@ -2,7 +2,16 @@
 Include/
 Lib/
 Scripts/
-__pycache__
+__pycache__/
+lib64
+lib/
+include/
+bin/
 start.bat
 start.sh
 pyvenv.cfg
+#audio files
+*.flac
+*.mp3
+*.wav
+*.m4a
