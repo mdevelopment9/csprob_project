@@ -45,7 +45,7 @@ class FileHandler:
         plt.xlabel("Time [s]")
         plt.ylabel("Amplitude")
         plt.show()
-        spectrum, freqs, t, im = plt.specgram(self.audio_data, Fs=self.samplerate,NFFT=1024, cmap=plt.get_cmap('autumn_r'))
+        spectrum, freqs, t, im = plt.specgram(self.audio_data[:, 0], Fs=self.samplerate,NFFT=1024, cmap=plt.get_cmap('autumn_r'))
         cbar = plt.colorbar(im)
         plt.xlabel('Time (s)')
         plt.ylabel('Frequency (Hz)')
