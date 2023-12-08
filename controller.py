@@ -4,10 +4,13 @@ Main controller class module
 import tkinter as tk
 from tkinter import filedialog as fd
 from file_handler import FileHandler
+
+
 class Controller:
     """
     Main controller class
     """
+
     def __init__(self, view):
         self.view = view
 
@@ -30,3 +33,4 @@ class Controller:
         :param file_box: File name for the audio file
         """
         file_handler = FileHandler(file_name)
+        file_handler.model_file()

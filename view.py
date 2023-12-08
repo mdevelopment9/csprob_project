@@ -33,27 +33,27 @@ class View(ttk.Frame):
 
         Adds a file picker, and a run button
         """
-        #Create base frames
+        # Create base frames
         top_frame = tk.Frame(self)
         bottom_frame = tk.Frame(self)
-        separator=ttk.Separator(self, orient=tk.HORIZONTAL)
+        separator = ttk.Separator(self, orient=tk.HORIZONTAL)
         top_frame.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
         bottom_frame.pack(side=tk.BOTTOM, fill=tk.X)
         separator.pack(side=tk.TOP, fill=tk.X, pady=10)
-        #Create file selction box and the button which opens the file selection dialog
+        # Create file selction box and the button which opens the file selection dialog
         file_box = tk.Text(
             top_frame,
             height=1,
             width=30,
             state=tk.DISABLED
         )
-        file_box.grid(row=0, column = 0, padx=5)
+        file_box.grid(row=0, column=0, padx=5)
         select_button = tk.Button(
             top_frame, text="Select file", command=lambda: self.controller.select_file(file_box)
         )
-        select_button.grid(row = 0, column = 1, padx=5)
+        select_button.grid(row=0, column=1, padx=5)
 
-        #Create the actual button that starts the modelling process
+        # Create the actual button that starts the modelling process
         run_button = tk.Button(
             bottom_frame, text="Start modeling",
             command=lambda: self.controller.start_model(file_box.get("1.0", tk.END).strip())
