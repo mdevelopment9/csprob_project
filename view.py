@@ -3,7 +3,10 @@ Main view class module
 """
 import tkinter as tk
 from tkinter import ttk
+import matplotlib.pyplot as plt
+import numpy as np
 from controller import Controller
+from audio_data import AudioData
 
 
 class View(ttk.Frame):
@@ -59,3 +62,25 @@ class View(ttk.Frame):
             command=lambda: self.controller.start_model(file_box.get("1.0", tk.END).strip())
         )
         run_button.pack(side=tk.BOTTOM, anchor=tk.S)
+
+    def plot_data(self, audio_data: AudioData) -> None:
+        time = np.linspace(0., audio_data.length, audio_data.audio_data.shape[0])
+        try:
+            split_data = audio_data.audio_data[:, 0]
+        except IndexError:
+            # in case of single channel audio
+            split_data = audio_data.audio_data
+        plt.plot(time, split_data, label="Left channel")
+        plt.legend()
+        plt.xlabel("Time [s]")
+        plt.ylabel("Amplitude")
+        plt.show()
+        # model freq spectrum
+        audio_data.spectrum, audio_data.freqs, t, im = plt.specgram(split_data, Fs=audio_data.samplerate, NFFT=1024,
+                                                        cmap=plt.get_cmap('autumn_r'))
+        cbar = plt.colorbar(im)
+        plt.xlabel('Time (s)')
+        plt.ylabel('Frequency (Hz)')
+        cbar.set_label('Intensity (dB)')
+        plt.show()
+        audio_data.find_reverb(audio_data.spectrum,audio_data.freqs,t,im)

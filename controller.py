@@ -3,7 +3,8 @@ Main controller class module
 """
 import tkinter as tk
 from tkinter import filedialog as fd
-from file_handler import FileHandler
+from file_data import FileData
+from audio_data import AudioData
 
 
 class Controller:
@@ -20,7 +21,7 @@ class Controller:
 
         :param file_box: tkinter text box for the audio file's location
         """
-        file_types = [('Audio Files', '.wav .mp3 .aac .flac')]
+        file_types = [('Audio Files', '.wav .mp3 .m4a .flac')]
         file_name = fd.askopenfilename(title='Choose the audio file', filetypes=file_types)
         file_box['state'] = tk.NORMAL
         file_box.insert('end', file_name)
@@ -32,5 +33,6 @@ class Controller:
 
         :param file_box: File name for the audio file
         """
-        file_handler = FileHandler(file_name)
-        file_handler.model_file()
+        file_data = FileData(file_name)
+        audio_data = AudioData(file_data)
+        self.view.plot_data(audio_data)
