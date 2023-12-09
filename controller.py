@@ -5,6 +5,8 @@ import tkinter as tk
 from tkinter import filedialog as fd
 from file_data import FileData
 from audio_data import AudioData
+from model_window import ModelWindow
+from plot_window import PlotWindow
 
 
 class Controller:
@@ -14,6 +16,7 @@ class Controller:
 
     def __init__(self, view):
         self.view = view
+        self.audio_data = None
 
     def select_file(self, file_box: tk.Text) -> None:
         """
@@ -34,5 +37,12 @@ class Controller:
         :param file_box: File name for the audio file
         """
         file_data = FileData(file_name)
-        audio_data = AudioData(file_data)
-        self.view.plot_data(audio_data)
+        self.audio_data = AudioData(file_data)
+        self.audio_data.model_file()
+        ModelWindow(self.view, self.audio_data)
+
+    def create_plot(self, plot_type:str) -> None:
+        """
+        Creates a plot window
+        """
+        PlotWindow(self.view, self.audio_data, plot_type)

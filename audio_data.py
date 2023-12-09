@@ -12,7 +12,7 @@ class AudioData:
     """
     def __init__(self, file_data: FileData) -> None:
         self.spectrum = self.freqs = None
-        self.samplerate, self.channels, self.length, self.audio_data = file_data.get_file_data()
+        self.samplerate, self.channels, self.length, self.data = file_data.get_file_data()
 
 
     def model_file(self) -> None:
@@ -20,7 +20,16 @@ class AudioData:
         Models the wav file and plots the signal amplitutde. Then, for one channel only, plots the frequency.
         :return: none
         """
-        
+        try:
+            split_data = self.data[:, 0]
+        except IndexError:
+            # in case of single channel audio
+            split_data = self.data
+        # model freq spectrum
+        self.spectrum, self.freqs, t, im = plt.specgram(split_data, Fs=self.samplerate, NFFT=1024,
+                                                        cmap=plt.get_cmap('autumn_r'))
+        self.find_reverb(self.spectrum,self.freqs,t,im)
+
 
     def find_target_frequency(self,freqs):
         for x in freqs:
