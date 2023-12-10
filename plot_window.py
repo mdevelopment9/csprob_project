@@ -60,6 +60,8 @@ class PlotWindow(tk.Toplevel):
                 toolbar.update()
                 canvas.get_tk_widget().pack(fill='both',expand=True)
             case "RT60":
-                pass
+                low = audio_data.find_reverb(250)
+                medium = audio_data.find_reverb(1000)
+                high = audio_data.find_reverb(5000)
             case _:
                 raise NameError("Invalid type of plot")

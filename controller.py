@@ -27,6 +27,7 @@ class Controller:
         file_types = [('Audio Files', '.wav .mp3 .m4a .flac')]
         file_name = fd.askopenfilename(title='Choose the audio file', filetypes=file_types)
         file_box['state'] = tk.NORMAL
+        file_box.delete('1.0',tk.END)
         file_box.insert('end', file_name)
         file_box['state'] = tk.DISABLED
 
