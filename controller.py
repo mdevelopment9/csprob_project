@@ -27,6 +27,7 @@ class Controller:
         file_types = [('Audio Files', '.wav .mp3 .m4a .flac')]
         file_name = fd.askopenfilename(title='Choose the audio file', filetypes=file_types)
         file_box['state'] = tk.NORMAL
+        file_box.delete('1.0',tk.END)
         file_box.insert('end', file_name)
         file_box['state'] = tk.DISABLED
 
@@ -36,7 +37,14 @@ class Controller:
 
         :param file_box: File name for the audio file
         """
-        file_data = FileData(file_name)
+        self.view.run_button['state'] = tk.DISABLED #prevent clicking button multiple times in a row
+        try:
+            file_data = FileData(file_name)
+            
+        except FileNotFoundError as fnfe:
+            self.view.show_message_box(fnfe)
+            self.view.run_button['state'] = tk.NORMAL
+            return
         self.audio_data = AudioData(file_data)
         self.audio_data.model_file()
         ModelWindow(self.view, self.audio_data)
@@ -45,4 +53,4 @@ class Controller:
         """
         Creates a plot window
         """
-        PlotWindow(self.view, self.audio_data, plot_type)
+        self.plot_window = PlotWindow(self.view, self.audio_data, plot_type)
