@@ -18,9 +18,9 @@ class ModelWindow(tk.Toplevel):
         self.parent = parent
         #Set window properties and assign the audio data to the window
         self.title("Model Information")
-        self.geometry("200x300")
-        self.maxsize(200, 300)
-        self.minsize(200, 300)
+        self.geometry("250x300")
+        self.maxsize(250, 300)
+        self.minsize(250, 300)
         self.audio_data = audio_data
         self.controller = parent.controller
         self.add_widgets()
