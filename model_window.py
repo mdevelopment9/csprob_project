@@ -2,10 +2,12 @@
 Module for the ModelWindow class
 """
 
+import os
 import tkinter as tk
 from tkinter import ttk
 import numpy as np
 from audio_data import AudioData
+from file_data import WAVEFILE_LOC
 
 class ModelWindow(tk.Toplevel):
     """
@@ -13,7 +15,7 @@ class ModelWindow(tk.Toplevel):
     """
     def __init__(self, parent, audio_data: AudioData) -> None:
         super().__init__(parent)
-
+        self.parent = parent
         #Set window properties and assign the audio data to the window
         self.title("Model Information")
         self.geometry("200x300")
@@ -22,6 +24,8 @@ class ModelWindow(tk.Toplevel):
         self.audio_data = audio_data
         self.controller = parent.controller
         self.add_widgets()
+
+        self.protocol("WM_DELETE_WINDOW", self.on_close)
 
     def add_widgets(self) -> None:
         """
@@ -107,6 +111,14 @@ class ModelWindow(tk.Toplevel):
         )
         spectrum_button.grid(row=10, column=1, padx=5, pady=(5,10))
         rt60_button = tk.Button( #future proofing
-            bottom_frame, text="RT60"
+            bottom_frame, text="RT60", command=lambda: self.controller.create_plot("RT60")
         )
         rt60_button.grid(row=10, column=2, padx=5, pady=(5,10))
+
+    def on_close(self):
+        """
+        Method to reenable run button and delete the temporary .wav file before closing the program.
+        """
+        self.parent.run_button['state'] = tk.NORMAL
+        os.remove(WAVEFILE_LOC)
+        self.destroy()

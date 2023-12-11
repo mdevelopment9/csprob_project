@@ -37,7 +37,14 @@ class Controller:
 
         :param file_box: File name for the audio file
         """
-        file_data = FileData(file_name)
+        self.view.run_button['state'] = tk.DISABLED #prevent clicking button multiple times in a row
+        try:
+            file_data = FileData(file_name)
+            
+        except FileNotFoundError as fnfe:
+            self.view.show_message_box(fnfe)
+            self.view.run_button['state'] = tk.NORMAL
+            return
         self.audio_data = AudioData(file_data)
         self.audio_data.model_file()
         ModelWindow(self.view, self.audio_data)
@@ -46,4 +53,4 @@ class Controller:
         """
         Creates a plot window
         """
-        PlotWindow(self.view, self.audio_data, plot_type)
+        self.plot_window = PlotWindow(self.view, self.audio_data, plot_type)

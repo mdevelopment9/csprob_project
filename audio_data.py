@@ -74,28 +74,30 @@ class AudioData:
         Finds the reverb of the audio data
         """
         data_in_db = self.frequency_check(target_frequency)
-        #plt.figure(2)
-        #plt.plot(self.t, data_in_db, linewidth=1, alpha=0.7)
-        #plt.xlabel("Time [s]")
-        #plt.ylabel("Power (dB)")
         index_of_max = np.argmax(data_in_db)
         value_of_max = data_in_db[index_of_max]
-        #plt.plot(self.t[index_of_max], data_in_db[index_of_max], 'go')
         self.sliced_array = data_in_db[index_of_max:]
         value_of_max_less_5 = self.find_nearest_value(value_of_max - 5)
         index_of_max_less_5 = np.where(data_in_db == value_of_max_less_5)
-        #plt.plot(self.t[index_of_max_less_5], data_in_db[index_of_max_less_5], 'yo')
         value_of_max_less_25 = self.find_nearest_value(value_of_max - 25)
         index_of_max_less_25 = np.where(data_in_db == value_of_max_less_25)
-        #plt.plot(self.t[index_of_max_less_25], data_in_db[index_of_max_less_25], 'ro')
         rt20 = (self.t[index_of_max_less_5] - self.t[index_of_max_less_25])[0]
         rt60 = np.abs(3 * rt20)
-        #plt.grid()
-        #plt.show()
+        if target_frequency < 750:
+            color = "red"
+            label = "Low Frequency"
+        elif target_frequency < 4000 :
+            color = "green"
+            label = "Medium Frequency"
+        else:
+            color = "blue"
+            label = "High Frequency"
         return {
             "data_in_db": data_in_db,
             "index_of_max": index_of_max,
             "index_of_max_less_5": index_of_max_less_5,
             "index_of_max_less_25": index_of_max_less_25,
-            "rt60": rt60
+            "rt60": rt60,
+            "color": color,
+            "label": label
         }

@@ -20,6 +20,7 @@ class View(ttk.Frame):
         super().__init__(parent)
         # Setting parameters to None if they need to be defined later
         self.controller: Controller = None
+        self.run_button: tk.Button = None
 
     def set_controller(self, controller: Controller) -> None:
         """
@@ -56,10 +57,14 @@ class View(ttk.Frame):
         select_button.grid(row=0, column=1, padx=5)
 
         # Create the actual button that starts the modelling process
-        run_button = tk.Button(
+        self.run_button = tk.Button(
             bottom_frame, text="Start modeling",
             command=lambda: self.controller.start_model(file_box.get("1.0", tk.END).strip())
         )
-        run_button.pack(side=tk.BOTTOM, anchor=tk.S)
+        self.run_button.pack(side=tk.BOTTOM, anchor=tk.S)
 
-
+    def show_message_box(self, fnfe: FileNotFoundError) -> None:
+        """
+        Method to show the FileNotFoundError
+        """
+        tk.messagebox.showerror("ERROR", f"Please choose an audio file before running the program\n\n Error:{fnfe}")
